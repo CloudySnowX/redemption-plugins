@@ -1,8 +1,8 @@
 {
   "private": true,
   "scripts": {
-    "build": "node scripts/build.js",
-    "watch": "node scripts/build.js --watch"
+    "build": "node build.mjs",
+    "watch": "node build.mjs --watch"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.1",
@@ -12,10 +12,8 @@
     "esbuild": "^0.17.10",
     "rollup": "^3.17.2",
     "rollup-plugin-esbuild": "^5.0.0",
-    "typescript": "^4.9.5"
-  },
-  "dependencies": {
-    "@vendetta/types": "latest"
+    "typescript": "^4.9.5",
+    "vendetta-types": "^2.4.21"
   },
   "pnpm": {
     "peerDependencyRules": {
