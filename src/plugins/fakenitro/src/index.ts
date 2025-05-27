@@ -1,10 +1,11 @@
+import { registerPlugin } from "@vendetta/plugins";
 import { registerSettings } from "@vendetta/settings";
 import Settings from "./components/Settings";
 import { patches } from "./patches";
 
 let settingsUnregister: () => void;
 
-export default {
+const FakeNitro = {
   onLoad: () => {
     // Register settings
     settingsUnregister = registerSettings("FakeNitro", Settings);
@@ -27,5 +28,8 @@ export default {
         patch.remove();
       }
     });
-  }
+  },
+  settings: Settings
 };
+
+export default registerPlugin(FakeNitro);
