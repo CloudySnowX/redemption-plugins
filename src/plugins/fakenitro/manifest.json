@@ -1,0 +1,14 @@
+{
+  "name": "FakeNitro",
+  "description": "Use Nitro emojis without Nitro, with customizable hyperlinks",
+  "authors": [
+    {
+      "name": "CloudySn0w",
+      "id": "591854988444041227"
+    }
+  ],
+  "main": "src/index.ts",
+  "vendetta": {
+    "icon": "img_nitro_emojis"
+  }
+}
