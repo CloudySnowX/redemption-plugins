@@ -28,7 +28,7 @@ const Settings = () => {
       <FormSection title="Emoji Settings">
         <FormRow
           label="Emoji Size"
-          subLabel="Choose the size of emojis in pixels"
+          subLabel="Choose the size of the emojis in pixels"
           leading={<FormRow.Icon source={{ uri: "https://cdn.discordapp.com/emojis/1025763617662488646.webp" }} />}
         >
           <FormSelect
