@@ -2,7 +2,9 @@ import { settings } from "@vendetta/storage";
 import { EmojiOptions, HyperlinkOptions } from "../types";
 
 // Initialize settings with defaults if not already set
-if (!settings.fakenitro) {
+if(!settings) let settings = {};
+
+if (!settings.fakenitro) 
   settings.fakenitro = {
     emoji: {
       size: 48,
@@ -10,13 +12,12 @@ if (!settings.fakenitro) {
     },
     hyperlink: {
       enabled: true,
-      customText: "🔗",
+      customText: ":link:",
       useCustomText: true,
       preserveEmojiName: false,
       openInNewTab: false
     }
   };
-}
 
 export const getSettings = () => settings.fakenitro;
 
