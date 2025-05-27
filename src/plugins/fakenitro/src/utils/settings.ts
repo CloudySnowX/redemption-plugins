@@ -3,7 +3,7 @@ import { EmojiOptions, HyperlinkOptions } from "../types";
 
 // Initialize settings with defaults if not already set
 if (!settings) {
-  var settings = {};
+  settings = {};
 }
 
 if (!settings.fakenitro) {
