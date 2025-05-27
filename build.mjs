@@ -48,6 +48,13 @@ const plugins = [
   esbuild({ minify: true }),
 ];
 
+// Define external dependencies that should not be bundled
+const external = [
+  "react",
+  "react-native",
+  /^@vendetta\/.*/
+];
+
 for (let plug of await readdir("./src/plugins")) {
   const manifest = JSON.parse(await readFile(`./src/plugins/${plug}/manifest.json`));
   const outPath = `./dist/${plug}/index.js`;
@@ -57,6 +64,7 @@ for (let plug of await readdir("./src/plugins")) {
       input: `./src/plugins/${plug}/${manifest.main}`,
       onwarn: () => {},
       plugins,
+      external, // Add external dependencies
     });
 
     await bundle.write({
@@ -67,6 +75,7 @@ for (let plug of await readdir("./src/plugins")) {
 
         const map = {
           react: "window.React",
+          "react-native": "window.ReactNative",
         };
 
         return map[id] || null;
