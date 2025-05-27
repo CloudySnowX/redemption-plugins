@@ -9,7 +9,7 @@ const FakeNitro = {
   onLoad: () => {
     // Register settings
     settingsUnregister = registerSettings("FakeNitro", Settings);
-    
+
     // Apply patches
     patches.forEach(patch => {
       const unpatch = patch.apply();
@@ -21,7 +21,7 @@ const FakeNitro = {
   onUnload: () => {
     // Unregister settings
     settingsUnregister?.();
-    
+
     // Remove patches
     patches.forEach(patch => {
       if (typeof patch.remove === "function") {
