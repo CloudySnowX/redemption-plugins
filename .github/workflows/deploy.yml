@@ -1,9 +1,7 @@
 name: Build and deploy
-
 on:
   push:
     branches: [master]
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -11,37 +9,32 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      
       - name: Prepare environment
         uses: actions/setup-node@v3
         with:
           node-version: "20"
-          
       - run: npm install --global pnpm
-      
       - name: Install deps
         run: pnpm i
-        
-      - name: Build plugin(s )
+      - name: Build plugin(s)
         run: node ./build.mjs
-        
       - name: Debug dist directory
         run: |
           echo "Contents of dist directory:"
           ls -la dist/
           echo "Contents of dist/fakenitro directory:"
           ls -la dist/fakenitro/ || echo "fakenitro directory not found"
-      
       - name: Create .nojekyll file
         run: touch dist/.nojekyll
-        
+      - name: Create index.html for root
+        run: |
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=https://github.com/CloudySnowX/redemptionplugins"></head><body><h1>RedemptionPlugins</h1><p>A collection of plugins for Revenge</p></body></html>' > dist/index.html
       - name: Copy additional files
         run: |
           cp README.md dist/README.md
           printf -- "---\npermalink: /404.html\n---\n" > dist/404.md
           printf -- "> **Note:** You accessed a link that returned a 404, probably by clicking one of the plugin links. You're supposed to copy the link address and add it into Revenge.\n\n" >> dist/404.md
           cat README.md >> dist/404.md
-      
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
