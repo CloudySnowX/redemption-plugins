@@ -2,10 +2,6 @@ import { settings } from "@vendetta";
 import { EmojiOptions, HyperlinkOptions } from "../types";
 
 // Initialize settings with defaults if not already set
-if (!settings) {
-  settings = {};
-}
-
 if (!settings.fakenitro) {
   settings.fakenitro = {
     emoji: {
