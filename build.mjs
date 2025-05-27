@@ -9,7 +9,7 @@ import swc from "@swc/core";
 
 const extensions = [".js", ".jsx", ".mjs", ".ts", ".tsx", ".cts", ".mts"];
 
-/** @type import("rollup").InputPluginOption */
+/** @type import("rollup" ).InputPluginOption */
 const plugins = [
   nodeResolve(),
   commonjs(),
@@ -72,12 +72,10 @@ for (let plug of await readdir("./src/plugins")) {
       globals(id) {
         if (id.startsWith("@vendetta"))
           return id.substring(1).replace(/\//g, ".");
-
         const map = {
-          react: "window.React",
+          "react": "window.React",
           "react-native": "window.ReactNative",
         };
-
         return map[id] || null;
       },
       format: "iife",
@@ -90,8 +88,24 @@ for (let plug of await readdir("./src/plugins")) {
     const toHash = await readFile(outPath);
     manifest.hash = createHash("sha256").update(toHash).digest("hex");
     manifest.main = "index.js";
-
     await writeFile(`./dist/${plug}/manifest.json`, JSON.stringify(manifest));
+
+    // Create plugin directory index.html to prevent 404s
+    const indexHtml = `<!DOCTYPE html>
+<html>
+<head>
+  <title>${manifest.name} (by ${manifest.authors[0].name}) | RedemptionPlugins</title>
+  <meta http-equiv="refresh" content="0; url=https://github.com/CloudySnowX/redemptionplugins">
+</head>
+<body>
+  <h1>${manifest.name} (by ${manifest.authors[0].name} )</h1>
+  <p>${manifest.description}</p>
+  <p>Note: This is a landing page for the plugin ${manifest.name}. The proper way to install this plugin is going to Revenge's Plugins page and adding it there.</p>
+</body>
+</html>`;
+
+    await writeFile(`./dist/${plug}/index.html`, indexHtml);
+
     console.log(`Successfully built ${manifest.name}!`);
   } catch (e) {
     console.error("Failed to build plugin...", e);
